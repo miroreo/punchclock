@@ -28,12 +28,12 @@
 		"@firebase/auth": "^0.17.2",
 		"@macfja/svelte-persistent-store": "^1.2.0",
 		"@vercel/node": "^1.12.1",
-		"autoprefixer": "^9.8.6",
+		"autoprefixer": "^10.3.4",
 		"firebase": "^9.0.2",
-		"postcss": "^7.0.36",
+		"postcss": "^8.3.6",
 		"rxfire": "^6.0.2",
 		"rxjs": "^7.3.0",
 		"svelte-navigator": "^3.1.5",
-		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
+		"tailwindcss": "^2.2.15"
 	}
 }
