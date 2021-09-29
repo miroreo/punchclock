@@ -1,0 +1,38 @@
+{
+	"name": "svelte-typescript",
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --host",
+		"build": "vite build",
+		"serve": "vite preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.11",
+		"@tsconfig/svelte": "^2.0.1",
+		"autoprefixer": "^10.3.4",
+		"cssnano": "^5.0.8",
+		"postcss": "^8.3.6",
+		"postcss-load-config": "^3.1.0",
+		"svelte": "^3.37.0",
+		"svelte-check": "^2.1.0",
+		"svelte-preprocess": "^4.9.4",
+		"tailwindcss": "^2.2.15",
+		"tslib": "^2.2.0",
+		"typescript": "^4.3.2",
+		"vite": "^2.5.4"
+	},
+	"dependencies": {
+		"@firebase/app": "^0.7.0",
+		"@firebase/auth": "^0.17.2",
+		"@macfja/svelte-persistent-store": "^1.2.0",
+		"autoprefixer": "^9.8.6",
+		"firebase": "^9.0.2",
+		"postcss": "^7.0.36",
+		"rxfire": "^6.0.2",
+		"rxjs": "^7.3.0",
+		"svelte-navigator": "^3.1.5",
+		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
+	}
+}

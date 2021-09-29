@@ -1,0 +1,1 @@
+{"version":2,"languages":{"nodejs-npm":{"specfileHash":"8e9c8053831b921e4d6c0add8f9e21c9","lockfileHash":"c20bc8751299b945085d82e11dcecec8","guessedImports":["rxfire","rxjs","svelte","svelte-preprocess","vite","@sveltejs/vite-plugin-svelte","firebase"],"guessedImportsHash":"71c2e25815896cde3f2e7fc9a364d69d"}}}
