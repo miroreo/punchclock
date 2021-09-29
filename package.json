@@ -27,6 +27,7 @@
 		"@firebase/app": "^0.7.0",
 		"@firebase/auth": "^0.17.2",
 		"@macfja/svelte-persistent-store": "^1.2.0",
+		"@vercel/node": "^1.12.1",
 		"autoprefixer": "^9.8.6",
 		"firebase": "^9.0.2",
 		"postcss": "^7.0.36",
