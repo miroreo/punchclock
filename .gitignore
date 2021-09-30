@@ -3,5 +3,5 @@
 /.vscode/
 .DS_Store
 /local/
-
+.env
 .vercel
