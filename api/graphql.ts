@@ -35,11 +35,11 @@ const apolloServer = new ApolloServer({
 			},
 		}
 	},
-  context: async () => {
-    const dbConn = await getConnection();
+  // context: async () => {
+  //   const dbConn = await getConnection();
 
-    return { dbConn };
-  },
+  //   return { dbConn };
+  // },
   introspection: true
 });
 
