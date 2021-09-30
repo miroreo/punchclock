@@ -6,6 +6,7 @@ import customSchema from "./custom";
 const linkSchema = gql`
   type Query {
     _: Boolean
+		getHello: String!
   }
 
   type Mutation {

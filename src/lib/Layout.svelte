@@ -1,7 +1,6 @@
 <script>
 	import ClockIn from './ClockIn.svelte';
 	export let logout;
-	export let user;
 </script>
 <div class="bg-gray-900 min-h-screen min-w-full text-white p-5 flex flex-col">
   <div class="flex flex-row my-5 place-items-center">
