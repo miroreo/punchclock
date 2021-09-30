@@ -20,12 +20,21 @@ const linkSchema = gql`
   }
 `;
 
-import typeDefs from "../src/graphql/schema";
-import resolvers from "../src/graphql/resolvers";
+// import typeDefs from "../src/graphql/schema";
+// import resolvers from "../src/graphql/resolvers";
 
 const apolloServer = new ApolloServer({
   typeDefs: linkSchema,
-  resolvers,
+  resolvers: {
+		// Date: GraphQLDate,
+		// Time: GraphQLTime,
+		// DateTime: GraphQLDateTime,
+		Query: {
+			getHello: async (): Promise<String> => {
+				return new Promise((res) => "Hello World!");
+			},
+		}
+	},
   context: async () => {
     const dbConn = await getConnection();
 
