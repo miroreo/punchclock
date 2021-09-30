@@ -1,38 +1,7 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import { getConnection } from "../src/database";
-// import {  } from "apollo-server-micro";
-
-// import noteSchema from "./note";
-// import customSchema from "./custom";
-
-// const linkSchema = gql`
-//   type Query {
-// 		getHello: String!
-//   }
-// `;
-
-// // import typeDefs from "../src/graphql/schema";
-// // import resolvers from "../src/graphql/resolvers";
-
-// const apolloServer = new ApolloServer({
-//   typeDefs: linkSchema,
-//   resolvers: {
-// 		// Date: GraphQLDate,
-// 		// Time: GraphQLTime,
-// 		// DateTime: GraphQLDateTime,
-// 		Query: {
-// 			getHello: async (): Promise<String> => {
-// 				return new Promise((res) => "Hello World!");
-// 			},
-// 		}
-// 	},
-//   // context: async () => {
-//   //   const dbConn = await getConnection();
-
-//   //   return { dbConn };
-//   // },
-//   // introspection: true
-// });
+import cors from 'micro-cors';
+const corsYay = cors();
 
 
 const typeDefs = gql`
@@ -51,4 +20,7 @@ const resolvers = {
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
-export default apolloServer.start().then(() => {return apolloServer.createHandler({ path: "/api/graphql" })});
+export default apolloServer.start().then(() => {
+	const handler =  apolloServer.createHandler({ path: "/api/graphql" })
+	return corsYay((req, res) => req.method === 'OPTIONS' ? res.send(res, 200, 'ok') : handler(req, res))
+});
