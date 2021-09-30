@@ -51,4 +51,4 @@ const resolvers = {
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
-export default apolloServer.createHandler({ path: "/api/graphql" });
+export default apolloServer.start().then(() => {return apolloServer.createHandler({ path: "/api/graphql" })});
