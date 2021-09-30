@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite --host",
+		"dev": "vite --port $PORT",
 		"build": "vite build",
 		"serve": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json"
@@ -34,8 +34,9 @@
 		"autoprefixer": "^10.3.4",
 		"dayjs": "^1.10.7",
 		"firebase": "^9.0.2",
-		"graphql": "^14.7.0",
+		"graphql": "^15.6.0",
 		"graphql-iso-date": "^3.6.1",
+		"micro": "^9.3.4",
 		"mongoose": "^6.0.8",
 		"postcss": "^8.3.6",
 		"rxfire": "^6.0.2",
