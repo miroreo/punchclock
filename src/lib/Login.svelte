@@ -3,7 +3,7 @@
 	export let overrideFirebase;
 	const githubClientID = "36f6c7eecba684a2ce94";
 	const loginOverride = () => {
-		window.location.href = `https://github.com/login/oauth/authorize?client_id=${githubClientID}&redirect_uri=https://${window.location.hostname}/api/auth/callback&scope=read:user,user:email`
+		window.location.href = `/api/auth/redirect`
 	}
 </script>
 <div class="bg-gray-900 min-h-screen flex-grow min-w-full text-white p-5 flex flex-col">

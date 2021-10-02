@@ -1,7 +1,7 @@
 const config ={
 	purge: {
 		enable: true,
-		content: ['./src/**/*.svelte'],
+		content: ['./**/*.svelte'],
 	},
 	theme: {
 		extend: {
@@ -206,6 +206,3 @@ const config ={
   },
   plugins: [],
 }
-
-
-module.exports = config;

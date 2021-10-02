@@ -5,6 +5,7 @@ import { getConnection } from '../../src/database';
 import jwt from 'jsonwebtoken';
 
 export default async (request: VercelRequest, response: VercelResponse) => {
+	// if (process.env.VERCEL_ENV == "preview") return
 	// get current URL
 	const currentURL = process.env.VERCEL_ENV == 'development' ? 'https://punchclock.roblockhead.repl.co' : 'https://punchclock.vercel.app';
 

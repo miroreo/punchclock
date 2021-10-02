@@ -3,9 +3,9 @@ import { ApolloError } from 'apollo-server-micro';
 
 
 export default {
-	// Date: GraphQLDate,
-	// Time: GraphQLTime,
-	// DateTime: GraphQLDateTime,
+	Date: GraphQLDate,
+	Time: GraphQLTime,
+	DateTime: GraphQLDateTime,
 	Query: {
     getHello: async (): Promise<String> => {
       return new Promise((res) => "Hello World!");

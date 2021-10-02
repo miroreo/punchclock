@@ -16,6 +16,10 @@ const linkSchema = gql`
   type Subscription {
     _: Boolean
   }
+	
+	type User {
+		
+	}
 `;
 
 export default [linkSchema, customSchema];

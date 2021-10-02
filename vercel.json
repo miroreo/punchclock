@@ -1,1 +1,5 @@
-{}
+{
+	"rewrites": [
+		{ "source": "/auth/github", "destination": "/api/auth/redirect" }
+	]
+}
