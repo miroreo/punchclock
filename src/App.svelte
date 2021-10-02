@@ -21,7 +21,7 @@
 				<MainApp />
 			</Layout>
 			{:else}
-				<Login loginWithGithub={loginWithGithub} />
+				<Login loginWithGithub={loginWithGithub} overrideFirebase/>
 			{/if}
 		
   </AuthGuard>

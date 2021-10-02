@@ -1,5 +1,6 @@
-run = "npm run dev"
+run = "vercel dev --token $VERCEL_TOKEN --confirm"
 onBoot = "sh ./local/config-git.sh"
+
 [packager]
 language = "nodejs"
 

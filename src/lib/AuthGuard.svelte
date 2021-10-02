@@ -1,5 +1,6 @@
 <script>
   import {app, auth} from '../firebase';
+	import {getCurrentAuthState} from '../api';
 	import { getAuth, signInWithPopup, signInWithRedirect, signOut, GithubAuthProvider } from "firebase/auth";
   // Firebase user
   let user = null;
@@ -45,7 +46,10 @@
   });
 
   // reactive helper variable
-  $: loggedIn = user !== null;
+  $: loggedIn = false;
+	getCurrentAuthState().then((res) => {
+		loggedIn = res;
+	})
 </script>
 
 <!-- we will expose all required methods and properties on our slot -->

@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
 
-const uri: string = process.env.MONGO_DB_URI;
+const uri: string = process.env.MONGODB_URI;
 
-let conn: mongoose.Connection = null;
-
-export const getConnection = async (): Promise<mongoose.Connection> => {
-  if (conn == null) {
-    conn = await mongoose.createConnection(uri, {
-      bufferCommands: false, // Disable mongoose buffering
-    });
+export const getConnection = async () => {
+  // check if we have a connection to the database or if it's currently
+  // connecting or disconnecting (readyState 1, 2 and 3)
+  if (mongoose.connection.readyState >= 1) {
+    return
   }
 
-  return conn;
+  return mongoose.connect(process.env.MONGODB_URI);
 };

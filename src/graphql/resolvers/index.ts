@@ -1,3 +1,13 @@
-import customResolver from "./custom";
+export default {
+	// Date: GraphQLDate,
+	// Time: GraphQLTime,
+	// DateTime: GraphQLDateTime,
+	Query: {
+		userById: async (): Promise<User> => {
 
-export default [customResolver];
+		},
+    getHello: async (): Promise<String> => {
+      return new Promise((res) => "Hello World!");
+    },
+	}
+};

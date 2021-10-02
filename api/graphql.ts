@@ -21,6 +21,6 @@ const resolvers = {
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
 
 export default apolloServer.start().then(() => {
-	const handler =  apolloServer.createHandler({ path: "/api/graphql" })
+	const handler = apolloServer.createHandler({ path: "/api/graphql" })
 	return corsYay((req, res) => req.method === 'OPTIONS' ? res.send(res, 200, 'ok') : handler(req, res))
 });
