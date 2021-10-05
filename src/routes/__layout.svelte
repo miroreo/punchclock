@@ -1,5 +1,6 @@
 <script>
-	import ClockIn from './ClockIn.svelte';
+	import ClockIn from '$lib/ClockIn.svelte';
+	import '../app.postcss';
 	let logout = () => {console.log("yeet")}
 </script>
 <div class="bg-gray-900 min-h-screen min-w-full text-white p-5 flex flex-col">
@@ -21,3 +22,48 @@
     <button on:click={logout} class="border-2 border-blue-400 px-2 py-1 rounded-lg">Sign Out</button>
   </div>
 </div>
+<!-- <script lang="ts">
+	import Header from '$lib/header/Header.svelte';
+	import '../app.postcss';
+</script>
+
+<Header />
+
+<main>
+	<slot />
+</main>
+
+<footer>
+	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+</footer>
+
+<style>
+	main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		width: 100%;
+		max-width: 1024px;
+		margin: 0 auto;
+		box-sizing: border-box;
+	}
+
+	footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 40px;
+	}
+
+	footer a {
+		font-weight: bold;
+	}
+
+	@media (min-width: 480px) {
+		footer {
+			padding: 40px 0;
+		}
+	}
+</style> -->

@@ -7,6 +7,7 @@ const linkSchema = gql`
   type Query {
     _: Boolean
 		getHello: String!
+		currentUser: User
   }
 
   type Mutation {
@@ -18,6 +19,9 @@ const linkSchema = gql`
   }
 	
 	type User {
+		id: String
+		username: String
+		email: String
 		
 	}
 `;

@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
-import { User } from '../../src/database/models';
-import { getConnection } from '../../src/database';
+import { User } from '../../../database/models';
+import { getConnection } from '../../../database';
 import jwt from 'jsonwebtoken';
 
 export default async (request: VercelRequest, response: VercelResponse) => {
@@ -12,13 +12,14 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 	// get a database connection
 	const dbConnection = await getConnection();
 
-	// github CLIENT ID
-	const clientId = "36f6c7eecba684a2ce94";
-
   const { code = null, state = null } = request.query;
 
-	const resp = await axios.post("https://github.com/login/oauth/access_token", 
-		`client_id=36f6c7eecba684a2ce94&client_secret=${process.env.GITHUB_SECRET}&code=${code}`, 
+	const resp = await axios.post<{
+		error?: string,
+		error_description?: string,
+		access_token?: string
+		}>("https://github.com/login/oauth/access_token", 
+		`client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_SECRET}&code=${code}`, 
 		{
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
@@ -31,48 +32,54 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 		return response.status(400).send(`Error: ${resp.data.error}, ${resp.data.error_description}`);
 	}
 	const userAuthToken = resp.data.access_token;
-	const userResp = await axios.get("https://api.github.com/user", {
+	const userResp = await axios.get<{
+			id?: number,
+			login: string
+		}>("https://api.github.com/user", {
 		headers: {
 			'Authorization': `token ${userAuthToken}`,
 			'Accept': 'application/json',
 		}
 	});
-	const userEmail = await axios.get("https://api.github.com/user/emails", {
+	const userEmail = await axios.get<{
+		email: string}[]>("https://api.github.com/user/emails", {
 		headers: {
 			'Authorization': `token ${userAuthToken}`,
 			'Accept': 'application/json',
 		}
 	});
 
-	const user = await User.findOne({authProvider: {
+	let user = await User.findOne({authProvider: {
 		name: "github",
 		userId: userResp.data.id,
 	}});
 
-	if (user.error)
+	if (!user)
 		user = await User.create({
 			username: userResp.data.login,
 			authProvider: {
 				name: "github",
 				userId: userResp.data.id,
 			},
-			email: userEmail.data.email,
+			email: userEmail.data[0].email,
 			oauthToken: userAuthToken,
 			status: {
 				clockedIn: false,
 			},
 		});
-
-	const token = jwt.sign({
-		id: user._id,
-		auth_provider: "github",
-		username: userResp.data.login,
-		iat: Math.floor(Date.now() / 1000)
-		}, process.env.JWT_SECRET, { expiresIn: '1yr' });
+	let token;
+	if (!request.cookies.punchclock_auth || !jwt.verify(request.cookies.punchclock_auth, process.env.JWT_SECRET))
+		token = jwt.sign({
+			id: user._id,
+			auth_provider: "github",
+			username: userResp.data.login,
+			iat: Math.floor(Date.now() / 1000)
+			}, process.env.JWT_SECRET, { expiresIn: '1yr' });
+	else token = request.cookies.punchclock_auth;
 
   response
 		.status(303)
 		.setHeader('Set-Cookie', [`punchclock_auth=${token};path=/`])
 		.setHeader('location', currentURL + '/')
-		// .send(`OAuth2 Response: ${JSON.stringify(userResp.data)}`);
+		.send(`OAuth2 Response: ${JSON.stringify(userResp.data)}`);
 };
