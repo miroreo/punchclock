@@ -1,4 +1,4 @@
-# run = "vercel dev --token $VERCEL_TOKEN --confirm"
+# run = "npx vercel dev --token $VERCEL_TOKEN"
 run = "npm run dev"
 onBoot = "sh ./local/config-git.sh"
 

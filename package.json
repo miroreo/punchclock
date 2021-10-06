@@ -14,7 +14,6 @@
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^1.0.0-next.30",
 		"@sveltejs/kit": "^1.0.0-next.179",
-		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.11",
 		"@tsconfig/svelte": "^2.0.1",
 		"@types/cookie": "^0.4.1",
 		"@typescript-eslint/eslint-plugin": "^4.32.0",
@@ -33,9 +32,7 @@
 		"svelte-preprocess": "^4.9.8",
 		"tailwindcss": "^2.2.15",
 		"tslib": "^2.3.1",
-		"typescript": "^4.4.3",
-		"vite": "^2.5.4",
-		"vite-plugin-mix": "^0.3.1"
+		"typescript": "^4.4.3"
 	},
 	"dependencies": {
 		"@firebase/app": "^0.7.0",
@@ -44,6 +41,7 @@
 		"@macfja/svelte-persistent-store": "^1.2.0",
 		"@vercel/node": "^1.12.1",
 		"apollo-server-core": "^3.3.0",
+		"apollo-server-env": "^4.0.3",
 		"apollo-server-lambda": "^3.3.0",
 		"apollo-server-micro": "^3.3.0",
 		"autoprefixer": "^10.3.4",
@@ -62,6 +60,7 @@
 		"rxjs": "^7.3.0",
 		"svelte-apollo": "^0.4.0",
 		"svelte-navigator": "^3.1.5",
-		"tailwindcss": "^2.2.15"
+		"tailwindcss": "^2.2.15",
+		"type-is": "^1.6.18"
 	}
 }
