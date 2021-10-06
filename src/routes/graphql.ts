@@ -1,5 +1,6 @@
 import type { EndpointOutput, RequestHandler } from "@sveltejs/kit";
 import { ApolloServer, gql } from "apollo-server-lambda";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 
 const typeDefs = gql`
   type Query {
@@ -23,9 +24,8 @@ const resolvers = {
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
-  playground: true,
+  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
   introspection: true,
-  tracing: true,
 });
 
 const graphqlHandler = apolloServer.createHandler();
@@ -37,8 +37,9 @@ const handler: RequestHandler = async (args) => {
         httpMethod: args.method,
         headers: args.headers,
         path: args.path,
-        body: args.rawBody as unknown as string,
-      } as any,
+        body: args.rawBody,
+				requestContext: "2.0" // workaround to prevent crashing on new versions
+      },
       {} as any,
       (err, result) => {
         if (err) {

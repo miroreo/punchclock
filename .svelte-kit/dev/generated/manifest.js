@@ -27,20 +27,8 @@ export const routes = [
 	// src/routes/todos/[uid].json.ts
 	[/^\/todos\/([^/]+?)\.json$/],
 
-	// src/routes/api/graphql.ts
-	[/^\/api\/graphql\/?$/],
-
 	// src/routes/api/hello.ts
-	[/^\/api\/hello\/?$/],
-
-	// src/routes/api/auth/callback.ts
-	[/^\/api\/auth\/callback\/?$/],
-
-	// src/routes/api/auth/redirect.ts
-	[/^\/api\/auth\/redirect\/?$/],
-
-	// src/routes/api/auth/status.ts
-	[/^\/api\/auth\/status\/?$/]
+	[/^\/api\/hello\/?$/]
 ];
 
 // we import the root layout/error components eagerly, so that

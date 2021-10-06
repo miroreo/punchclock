@@ -1,5 +1,5 @@
 # run = "vercel dev --token $VERCEL_TOKEN --confirm"
-run = "npm run dev:new"
+run = "npm run dev"
 onBoot = "sh ./local/config-git.sh"
 
 [packager]
