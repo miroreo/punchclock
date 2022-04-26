@@ -1,5 +1,7 @@
 // get current URL
-const currentURL = !import.meta.env.PROD ? 'https://punchclock.roblockhead.repl.co' : 'https://punchclock.vercel.app';
+const currentURL = !import.meta.env.PROD
+	? 'https://punchclock.roblockhead.repl.co'
+	: 'https://punchclock.vercel.app';
 
 export const getCurrentAuthState = async (): Promise<Boolean> => {
 	// const res = await fetch(currentURL + '/api/auth/status')
@@ -7,5 +9,4 @@ export const getCurrentAuthState = async (): Promise<Boolean> => {
 	// 	return true
 	// } else return false;
 	return false;
-}
-
+};

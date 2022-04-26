@@ -1,9 +1,24 @@
-<script context="module" lang="ts">
-	export const prerender = true;
+<script context="module">
+	// export const load = async ({ fetch }) => {
+	// 	const res = await fetch('/api/jobs', {
+	// 		method: 'GET',
+	// 		headers: {
+	// 			'Content-Type': 'application/json'
+	// 		}
+	// 	});
+	// 	let data = await res.json();
+	// 	if(res.status != 200) return data.error;
+	// 	return {
+	// 		props: {
+	// 			data: JSON.parse(data),
+	// 			loggedIn: JSON.parse(data)
+	// 		}
+	// 	};
+	// };
 </script>
 
 <script lang="ts">
-	import Counter from '$lib/Counter.svelte';
+	import { GlobalStore } from '../store';
 </script>
 
 <svelte:head>
@@ -11,49 +26,5 @@
 </svelte:head>
 
 <section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
+	<h1>{$GlobalStore.data}</h1>
 </section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>

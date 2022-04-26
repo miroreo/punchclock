@@ -1,83 +1,105 @@
-import {
-  GraphQLOptions,
-  runHttpQuery,
-  convertNodeHttpToRequest,
-	
-} from 'apollo-server-core';
-import type { EndpointOutput, RequestHandler, IncomingRequest } from "@sveltejs/kit";
+import { GraphQLOptions, runHttpQuery } from 'apollo-server-core';
+import type { EndpointOutput, RequestHandler, Request, IncomingRequest } from '@sveltejs/kit';
 import { send, json } from 'micro';
 import url from 'url';
 import type { IncomingMessage, ServerResponse } from 'http';
 import typeis from 'type-is';
-import type {CustomResponse} from '../apollo-server-sveltekit/ApolloServer';
+import type { CustomResponse } from '../apollo-server-sveltekit/ApolloServer';
 // import type { MicroRequest } from './types';
 import type { ValueOrPromise } from 'apollo-server-types';
-
+import { Request as NodeRequest } from 'apollo-server-env';
 // Allowed Micro Apollo Server options.
 export interface MicroGraphQLOptionsFunction {
-  (req?: IncomingMessage): ValueOrPromise<GraphQLOptions>;
+	(req?: IncomingRequest): ValueOrPromise<GraphQLOptions>;
 }
-var enc = new TextDecoder("utf-8");
+type RequestHeaders = {
+	[x: string]: string;
+};
 
-function setHeaders(
-  res: CustomResponse,
-  headers: Record<string, string>,
-): void {
-  Object.entries(headers).forEach(([header, value]) => {
-    res.setHeader(header, value);
+var enc = new TextDecoder('utf-8');
+const convertHeaders = (inHead: RequestHeaders): Headers => {
+	let out = new Headers();
+	for (const [key, value] of Object.entries(inHead)) {
+		out.set(key, value);
+	}
+	return out;
+}
+function setHeaders(res: CustomResponse, headers: Record<string, string>): void {
+	Object.entries(headers).forEach(([header, value]) => {
+		res.setHeader(header, value);
+	});
+}
+const convertNodeHttpToRequest = (req: Request): Request  => {
+  const headers = new Headers();
+  Object.keys(req.headers).forEach((key) => {
+    const values = req.headers[key]!;
+    if (Array.isArray(values)) {
+      values.forEach((value) => headers.append(key, value));
+    } else {
+      headers.append(key, values);
+    }
+  });
+
+  return new NodeRequest("https://" + req.host + req.path, {
+    headers,
+    method: req.method,
+		body: req.body
   });
 }
 
-export function graphqlSveltekit(
-  options: GraphQLOptions | MicroGraphQLOptionsFunction,
-) {
-  if (!options) {
-    throw new Error('Apollo Server requires options.');
-  }
+export function graphqlSveltekit(options: GraphQLOptions | MicroGraphQLOptionsFunction) {
+	if (!options) {
+		throw new Error('Apollo Server requires options.');
+	}
 
-  if (arguments.length > 1) {
-    throw new Error(
-      `Apollo Server expects exactly one argument, got ${arguments.length}`,
-    );
-  }
+	if (arguments.length > 1) {
+		throw new Error(`Apollo Server expects exactly one argument, got ${arguments.length}`);
+	}
 
-  const graphqlHandler = async (args: IncomingRequest, response: CustomResponse) => {
-    const contentType = args.headers['content-type'];
-    const query = 
-      args.method === 'POST'
-        ? (contentType &&
-            args.headers['content-length'] &&
-            args.headers['content-length'] !== '0' &&
-            typeis.is(contentType, 'application/json') &&
-            (await JSON.parse(enc.decode(args.rawBody))))
-        : args.query;
+	const graphqlHandler = async (args: Request, response: CustomResponse) => {
+		const contentType = args.headers['content-type'];
+		console.log(args);
+		const query =
+			args.method === 'POST'
+				? contentType &&
+				  contentType !== '0' &&
+				  typeis.is(contentType, 'application/json') &&
+				  (JSON.parse(JSON.stringify(args.body)))
+				: args.query;
+		console.log(query);
+		try {
+			console.log(args.body);
+			console.log(convertNodeHttpToRequest(args).body);
+			const { graphqlResponse, responseInit } = await 
+			runHttpQuery([args], {
+				method: args.method!,
+				options,
+				query: query as any,
+				request: {
+					url: "https://" + args.host + args.path,
+					method: args.method,
+					headers: convertHeaders(args.headers)
+				}
+			});
 
-    try {
-      const { graphqlResponse, responseInit } = await runHttpQuery([args], {
-        method: args.method!,
-        options,
-        query: query as any,
-        request: convertNodeHttpToRequest(args as unknown as IncomingMessage),
-      });
-			
-      setHeaders(response, responseInit.headers!);
-      const statusCode = responseInit.status || 200;
+			setHeaders(response, responseInit.headers!);
+			const statusCode = responseInit.status || 200;
 			response.status = statusCode;
 			response.body = graphqlResponse;
 			response.send();
 
-      return undefined;
-    } catch (error) {
-      if (error.name === 'HttpQueryError' && error.headers) {
-        setHeaders(response, error.headers);
-      }
+			return undefined;
+		} catch (error) {
+			if (error.name === 'HttpQueryError' && error.headers) {
+				setHeaders(response, error.headers);
+			}
 
-      response.status = (error as any).statusCode || 500;
+			response.status = (error as any).statusCode || 500;
 			response.body = (error as Error).message;
 			response.send();
-      return undefined;
-    }
-  };
+			return undefined;
+		}
+	};
 
-  return graphqlHandler;
+	return graphqlHandler;
 }

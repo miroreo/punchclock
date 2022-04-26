@@ -1,5 +1,5 @@
 import sveltePreprocess from 'svelte-preprocess';
-import vercel from '@sveltejs/adapter-vercel'
+import vercel from '@sveltejs/adapter-vercel';
 
 export default {
 	// Consult https://github.com/sveltejs/svelte-preprocess
@@ -10,8 +10,8 @@ export default {
 			// 	style: 'postcss'
 			// },
 			// postcss: true
-		}
-	)],
+		})
+	],
 
 	kit: {
 		adapter: vercel(),
@@ -21,9 +21,8 @@ export default {
 			server: {
 				hmr: {
 					clientPort: 443
-				},
+				}
 			}
 		}
 	}
 };
-

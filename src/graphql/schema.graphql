@@ -1,0 +1,56 @@
+directive @auth(requires: Role = ADMIN) on FIELD_DEFINITION
+directive @self on OBJECT | FIELD_DEFINITION
+directive @onlyShared on OBJECT | FIELD_DEFINITION
+
+scalar Upload
+
+enum Role {
+	ADMIN
+	TEACHER
+	STUDENT
+	USER
+	OWNER
+}
+
+type Query {
+	getHello: String!
+	currentUser: User @auth(requires: OWNER)
+	userById(id: String): User @onlyShared
+	entryById(id: String): Entry
+	getAllUsers: [User]! @auth(requires: ADMIN)
+	getAllJobs: [Job]! @auth(requires: ADMIN)
+	currentToken: String @auth(requires: OWNER)
+}
+
+type Mutation {
+	clockIn(jobId: String!): ClockStatus
+}
+
+type ClockStatus {
+	clockedIn: Boolean!
+	job: Job
+	clockInTime: DateTime
+}
+
+type User {
+	id: String!
+	username: String 
+	email: String
+	jobs: [Job]
+	status: ClockStatus
+	roles: [String]
+}
+
+
+type Job {
+	id: String!
+	owner: User!
+	name: String
+}
+
+type Entry {
+	id: String!
+	job: Job
+	owner: User
+}
+scalar DateTime

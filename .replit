@@ -1,13 +1,13 @@
 # run = "npx vercel dev --token $VERCEL_TOKEN"
 run = "npm run dev"
-onBoot = "sh ./local/config-git.sh"
+onBoot = "sh ./local/config-git.sh && npm install"
 
 [packager]
 language = "nodejs"
 
 [packager.features]
 packageSearch = true
-guessImports = true
+guessImports = false
 
 [languages.svelte]
 pattern = "**/*.svelte"
