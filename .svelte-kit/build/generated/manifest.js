@@ -37,8 +37,14 @@ export const routes = [
 	// src/routes/auth/github/callback.ts
 	[/^\/auth\/github\/callback\/?$/],
 
+	// src/routes/auth/logout.ts
+	[/^\/auth\/logout\/?$/],
+
 	// src/routes/api/hello.ts
-	[/^\/api\/hello\/?$/]
+	[/^\/api\/hello\/?$/],
+
+	// src/routes/api/jobs.ts
+	[/^\/api\/jobs\/?$/]
 ];
 
 // we import the root layout/error components eagerly, so that

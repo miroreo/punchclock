@@ -1,4 +1,4 @@
-import { GraphQLDateTime } from 'graphql-iso-date';
+import isoDate from 'graphql-iso-date';
 import { IUser, User } from '../../database/models';
 import { getConnection } from '../../database';
 import { getUserFromToken } from '../../lib/auth';
@@ -6,7 +6,7 @@ export default {
 	// Date: GraphQLDate,
 	// Time: GraphQLTime,
 	
-	DateTime: GraphQLDateTime,
+	DateTime: isoDate['GraphQLDateTime'],
 	Query: {
 		userById: async (parent, args, context, info): Promise<IUser> => {
 			await getConnection(); // make sure the database is connected

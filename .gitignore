@@ -5,3 +5,5 @@
 /local/
 .env
 .vercel
+.svelte-kit
+.vercel_build_output

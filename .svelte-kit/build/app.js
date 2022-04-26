@@ -22,9 +22,9 @@ export function init(settings = default_settings) {
 		amp: false,
 		dev: false,
 		entry: {
-			file: assets + "/_app/start-42a36133.js",
+			file: assets + "/_app/start-b8ba1202.js",
 			css: [assets + "/_app/assets/start-d977ffc4.css"],
-			js: [assets + "/_app/start-42a36133.js",assets + "/_app/chunks/vendor-8b3525a6.js"]
+			js: [assets + "/_app/start-b8ba1202.js",assets + "/_app/chunks/vendor-fffb1913.js",assets + "/_app/chunks/singletons-12a22614.js"]
 		},
 		fetched: undefined,
 		floc: false,
@@ -134,9 +134,21 @@ const manifest = {
 					},
 		{
 						type: 'endpoint',
+						pattern: /^\/auth\/logout\/?$/,
+						params: empty,
+						load: () => import("../../src/routes/auth/logout.ts")
+					},
+		{
+						type: 'endpoint',
 						pattern: /^\/api\/hello\/?$/,
 						params: empty,
 						load: () => import("../../src/routes/api/hello.ts")
+					},
+		{
+						type: 'endpoint',
+						pattern: /^\/api\/jobs\/?$/,
+						params: empty,
+						load: () => import("../../src/routes/api/jobs.ts")
 					}
 	]
 };
@@ -154,7 +166,7 @@ const module_lookup = {
 	"src/routes/__layout.svelte": () => import("../../src/routes/__layout.svelte"),"src/routes/__error.svelte": () => import("../../src/routes/__error.svelte"),"src/routes/index.svelte": () => import("../../src/routes/index.svelte"),"src/routes/about.svelte": () => import("../../src/routes/about.svelte"),"src/routes/login.svelte": () => import("../../src/routes/login.svelte"),"src/routes/todos/index.svelte": () => import("../../src/routes/todos/index.svelte")
 };
 
-const metadata_lookup = {"src/routes/__layout.svelte":{"entry":"pages/__layout.svelte-4fc6b948.js","css":["assets/pages/__layout.svelte-53684cb8.css"],"js":["pages/__layout.svelte-4fc6b948.js","chunks/vendor-8b3525a6.js"],"styles":[]},"src/routes/__error.svelte":{"entry":"pages/__error.svelte-b41eb08f.js","css":[],"js":["pages/__error.svelte-b41eb08f.js","chunks/vendor-8b3525a6.js"],"styles":[]},"src/routes/index.svelte":{"entry":"pages/index.svelte-db055285.js","css":["assets/pages/index.svelte-7523914d.css"],"js":["pages/index.svelte-db055285.js","chunks/vendor-8b3525a6.js"],"styles":[]},"src/routes/about.svelte":{"entry":"pages/about.svelte-1724db51.js","css":["assets/pages/about.svelte-eab7e969.css"],"js":["pages/about.svelte-1724db51.js","chunks/vendor-8b3525a6.js"],"styles":[]},"src/routes/login.svelte":{"entry":"pages/login.svelte-f978eb9b.js","css":[],"js":["pages/login.svelte-f978eb9b.js","chunks/vendor-8b3525a6.js"],"styles":[]},"src/routes/todos/index.svelte":{"entry":"pages/todos/index.svelte-3d16c66c.js","css":["assets/pages/todos/index.svelte-28da250b.css"],"js":["pages/todos/index.svelte-3d16c66c.js","chunks/vendor-8b3525a6.js"],"styles":[]}};
+const metadata_lookup = {"src/routes/__layout.svelte":{"entry":"pages/__layout.svelte-a0b6e5ea.js","css":["assets/pages/__layout.svelte-53684cb8.css"],"js":["pages/__layout.svelte-a0b6e5ea.js","chunks/vendor-fffb1913.js","chunks/singletons-12a22614.js","chunks/store-7a3a9b31.js"],"styles":[]},"src/routes/__error.svelte":{"entry":"pages/__error.svelte-60c49601.js","css":[],"js":["pages/__error.svelte-60c49601.js","chunks/vendor-fffb1913.js"],"styles":[]},"src/routes/index.svelte":{"entry":"pages/index.svelte-7b3c6c2e.js","css":[],"js":["pages/index.svelte-7b3c6c2e.js","chunks/vendor-fffb1913.js","chunks/store-7a3a9b31.js"],"styles":[]},"src/routes/about.svelte":{"entry":"pages/about.svelte-4047cf32.js","css":["assets/pages/about.svelte-eab7e969.css"],"js":["pages/about.svelte-4047cf32.js","chunks/vendor-fffb1913.js"],"styles":[]},"src/routes/login.svelte":{"entry":"pages/login.svelte-e4bad556.js","css":[],"js":["pages/login.svelte-e4bad556.js","chunks/vendor-fffb1913.js"],"styles":[]},"src/routes/todos/index.svelte":{"entry":"pages/todos/index.svelte-c5e799d0.js","css":["assets/pages/todos/index.svelte-28da250b.css"],"js":["pages/todos/index.svelte-c5e799d0.js","chunks/vendor-fffb1913.js"],"styles":[]}};
 
 async function load_component(file) {
 	const { entry, css, js, styles } = metadata_lookup[file];
