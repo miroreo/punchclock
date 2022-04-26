@@ -33,7 +33,7 @@ export default {
 		},
 		currentUser: async (parent, args, context, info): Promise<IUser> => {
 			console.log("Current User Requested");
-			return await context.getUser();
+			return await getUserFromToken(context.token);
 		},
 		currentToken: (parent, args, context, info) => Promise.resolve(context.token),
 	}
