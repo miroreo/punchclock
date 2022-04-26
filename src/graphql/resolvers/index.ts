@@ -12,7 +12,7 @@ export default {
 			await getConnection(); // make sure the database is connected
 			let user: IUser;
 			try {
-				user = User.findOne({ _id: args.id }).;
+				user = User.findOne({ _id: args.id });
 				console.log(context.userToken);
 				let newUser;
 				if(context.userToken?.id != user.id) {
